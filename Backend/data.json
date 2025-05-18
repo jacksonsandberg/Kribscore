@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1, 
+      "name": "Laie Hale", 
+      "address": "55-123 Kulanui St", 
+      "rent": "$650/month"
+    },
+    {
+      "id": 2, 
+      "name": "Hauula House", 
+      "address": "54-321 Hana St", 
+      "rent": "$700/month"
+    },
+    {
+      "id": 3, 
+      "name": "Temple View Apartment", 
+      "address": "55-220 Naniloa Loop", 
+      "rent": "$750/month"
+    }
+  ]
