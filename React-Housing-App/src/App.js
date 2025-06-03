@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import PropertyList from './components/PropertyList';
 import PropertyForm from './components/PropertyForm';
+import Login from './Login';
 
 function App() {
   const [properties, setProperties] = useState([]);
@@ -10,20 +11,29 @@ function App() {
   const [error, setError] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [currentProperty, setCurrentProperty] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem('token')
+  );
 
-  // API URL - make sure this matches your backend
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    fetchProperties(); // reload properties after login
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setIsFormVisible(false);
+    setCurrentProperty(null);
+  };
+
   const API_URL = 'http://localhost:5001/api/properties';
 
-  // Fetch all properties
   const fetchProperties = async () => {
     try {
       setLoading(true);
       const response = await fetch(API_URL);
-      
-      if (!response.ok) {
-        throw new Error('Server responded with an error');
-      }
-      
+      if (!response.ok) throw new Error('Server responded with an error');
       const data = await response.json();
       setProperties(data);
       setLoading(false);
@@ -34,27 +44,25 @@ function App() {
     }
   };
 
-  // Load properties when component mounts
   useEffect(() => {
     fetchProperties();
   }, []);
 
-  // Add a new property
+  const getAuthHeaders = () => ({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
+
   const handleAddProperty = async (propertyData) => {
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(propertyData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to add property');
-      }
+      if (!response.ok) throw new Error('Failed to add property');
 
-      // Refresh the property list
       fetchProperties();
       setIsFormVisible(false);
     } catch (error) {
@@ -63,22 +71,16 @@ function App() {
     }
   };
 
-  // Update an existing property
   const handleUpdateProperty = async (propertyData) => {
     try {
       const response = await fetch(`${API_URL}/${currentProperty.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(propertyData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to update property');
-      }
+      if (!response.ok) throw new Error('Failed to update property');
 
-      // Refresh the property list
       fetchProperties();
       setIsFormVisible(false);
       setCurrentProperty(null);
@@ -88,18 +90,15 @@ function App() {
     }
   };
 
-  // Delete a property
   const handleDeleteProperty = async (id) => {
     try {
       const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to delete property');
-      }
+      if (!response.ok) throw new Error('Failed to delete property');
 
-      // Refresh the property list
       fetchProperties();
     } catch (error) {
       console.error('Error deleting property:', error);
@@ -107,13 +106,11 @@ function App() {
     }
   };
 
-  // Edit a property (show form with property data)
   const handleEditProperty = (property) => {
     setCurrentProperty(property);
     setIsFormVisible(true);
   };
 
-  // Form submission handler (determines whether to add or update)
   const handleFormSubmit = (formData) => {
     if (currentProperty) {
       handleUpdateProperty(formData);
@@ -122,11 +119,14 @@ function App() {
     }
   };
 
-  // Cancel form
   const handleCancelForm = () => {
     setIsFormVisible(false);
     setCurrentProperty(null);
   };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
 
   if (loading) return <div className="loading">Loading properties...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -135,25 +135,30 @@ function App() {
     <div className="App">
       <header className="app-header">
         <h1>BYU-Hawaii Student Housing</h1>
-        <button 
-          className="add-property-btn" 
-          onClick={() => {
-            setCurrentProperty(null);
-            setIsFormVisible(true);
-          }}
-        >
-          Add New Property
-        </button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button
+            className="add-property-btn"
+            onClick={() => {
+              setCurrentProperty(null);
+              setIsFormVisible(true);
+            }}
+          >
+            Add New Property
+          </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </header>
 
       {isFormVisible ? (
-        <PropertyForm 
+        <PropertyForm
           property={currentProperty}
           onSubmit={handleFormSubmit}
           onCancel={handleCancelForm}
         />
       ) : (
-        <PropertyList 
+        <PropertyList
           properties={properties}
           onEdit={handleEditProperty}
           onDelete={handleDeleteProperty}
