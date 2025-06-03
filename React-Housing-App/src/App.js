@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import PropertyList from './components/PropertyList';
 import PropertyForm from './components/PropertyForm';
-import Login from './components/Login';
+import Login from './components/login';
 
 function App() {
   const [properties, setProperties] = useState([]);
