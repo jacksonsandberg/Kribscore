@@ -27,7 +27,8 @@ function App() {
     setCurrentProperty(null);
   };
 
-  const API_URL = 'http://localhost:5001/api/properties';
+  const API_URL = 'https://kribscore.onrender.com/api/properties';
+
 
   const fetchProperties = async () => {
     try {
