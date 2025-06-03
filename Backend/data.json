@@ -1,26 +1,26 @@
 [
   {
     "id": 1,
-    "name": "Yacht House",
+    "name": "Nice House",
     "address": "55-149 Kulanui St Laie",
-    "rent": "$550/Month"
-  },
-  {
-    "id": 3,
-    "name": "Tramp House",
-    "address": "527 Moana St Laie",
     "rent": "$650/Month"
   },
   {
     "id": 4,
-    "name": "Jone's Mom's House",
+    "name": "Goat House",
     "address": "Laie Hawaii",
     "rent": "$800/Month"
   },
   {
     "id": 5,
-    "name": "Nice House",
+    "name": "Mango House",
     "address": "Moana Street",
+    "rent": "$500/month"
+  },
+  {
+    "id": 6,
+    "name": "Tramp House",
+    "address": "Laie Hawaii",
     "rent": "$500/month"
   }
 ]
