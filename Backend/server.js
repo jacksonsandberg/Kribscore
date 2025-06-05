@@ -86,7 +86,16 @@ app.post('/api/properties', authenticateToken, async (req, res) => {
       ? Math.max(...properties.map(p => p.id)) + 1 
       : 1;
 
-    const newProperty = { id: newId, ...req.body };
+      const { name, address, price, gender, rating } = req.body;
+      const newProperty = {
+        id: newId,
+        name,
+        address,
+        price,
+        gender,
+        rating,
+      };
+      
     properties.push(newProperty);
     await writeDataFile(properties);
 
@@ -106,7 +115,16 @@ app.put('/api/properties/:id', authenticateToken, async (req, res) => {
 
     if (index === -1) return res.status(404).json({ message: 'Property not found' });
 
-    const updatedProperty = { id, ...req.body };
+    const { name, address, price, gender, rating } = req.body;
+const updatedProperty = {
+  id,
+  name,
+  address,
+  price,
+  gender,
+  rating,
+};
+
     properties[index] = updatedProperty;
     await writeDataFile(properties);
 
