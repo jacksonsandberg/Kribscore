@@ -17,7 +17,7 @@ function App() {
 
   const handleLogin = () => {
     setIsLoggedIn(true);
-    fetchProperties(); // reload properties after login
+    fetchProperties();
   };
 
   const handleLogout = () => {
@@ -28,7 +28,6 @@ function App() {
   };
 
   const API_URL = 'https://kribscore.onrender.com/api/properties';
-
 
   const fetchProperties = async () => {
     try {
@@ -125,10 +124,6 @@ function App() {
     setCurrentProperty(null);
   };
 
-  if (!isLoggedIn) {
-    return <Login onLogin={handleLogin} />;
-  }
-
   if (loading) return <div className="loading">Loading properties...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -137,18 +132,24 @@ function App() {
       <header className="app-header">
         <h1>BYU-Hawaii Student Housing</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button
-            className="add-property-btn"
-            onClick={() => {
-              setCurrentProperty(null);
-              setIsFormVisible(true);
-            }}
-          >
-            Add New Property
-          </button>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
+          {isLoggedIn ? (
+            <>
+              <button
+                className="add-property-btn"
+                onClick={() => {
+                  setCurrentProperty(null);
+                  setIsFormVisible(true);
+                }}
+              >
+                Add New Property
+              </button>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <Login onLogin={handleLogin} />
+          )}
         </div>
       </header>
 
