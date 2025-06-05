@@ -6,7 +6,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    price: '',
+    rent: '',
     gender: '',
     rating: ''
   });
@@ -16,7 +16,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
       setFormData({
         name: property.name || '',
         address: property.address || '',
-        price: property.price || '',
+        rent: property.rent || '',
         gender: property.gender || '',
         rating: property.rating || ''
       });
@@ -35,7 +35,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
     e.preventDefault();
     const parsedData = {
       ...formData,
-      price: Number(formData.price),
+      rent: Number(formData.rent),
       rating: Number(formData.rating)
     };
     onSubmit(parsedData);
@@ -70,12 +70,12 @@ function PropertyForm({ property, onSubmit, onCancel }) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="price">Rent (Monthly)</label>
+          <label htmlFor="rent">Rent (Monthly)</label>
           <input
             type="number"
-            id="price"
-            name="price"
-            value={formData.price}
+            id="rent"
+            name="rent"
+            value={formData.rent}
             onChange={handleChange}
             required
           />

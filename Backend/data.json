@@ -4,7 +4,7 @@
     "name": "Nice House",
     "address": "55-149 Kulanui St Laie",
     "gender": "girl",
-    "price": 650,
+    "rent": 650,
     "rating": 4.5
   },
   {
@@ -12,7 +12,7 @@
     "name": "Goat House",
     "address": "Laie Hawaii",
     "gender": "boy",
-    "price": 800,
+    "rent": 800,
     "rating": 4.0
   },
   {
@@ -20,7 +20,7 @@
     "name": "Mango House",
     "address": "Moana Street",
     "gender": "girl",
-    "price": 500,
+    "rent": 500,
     "rating": 3.8
   },
   {
@@ -28,7 +28,7 @@
     "name": "Tramp House",
     "address": "Laie Hawaii",
     "gender": "boy",
-    "price": 500,
+    "rent": 500,
     "rating": 3.2
   }
 ]
