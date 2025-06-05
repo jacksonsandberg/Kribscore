@@ -56,17 +56,22 @@ function App() {
   }, []);
 
   const filteredProperties = properties.filter((property) => {
-    const genderMatch =
-      !filters.gender || property.gender?.toLowerCase() === filters.gender;
-
-    const priceMatch =
-      !filters.maxPrice || property.price <= parseFloat(filters.maxPrice);
-
-    const ratingMatch =
-      !filters.minRating || property.rating >= parseFloat(filters.minRating);
-
+    const genderMatch = filters.gender
+      ? property.gender?.toLowerCase() === filters.gender.toLowerCase()
+      : true;
+  
+    const maxPrice = parseInt(filters.maxPrice);
+    const propertyPrice = parseInt(property.rent?.replace(/\D/g, '')) || 0;
+    const priceMatch = filters.maxPrice ? propertyPrice <= maxPrice : true;
+  
+    const minRating = parseFloat(filters.minRating);
+    const ratingMatch = filters.minRating
+      ? parseFloat(property.rating || 0) >= minRating
+      : true;
+  
     return genderMatch && priceMatch && ratingMatch;
   });
+  
 
   const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
