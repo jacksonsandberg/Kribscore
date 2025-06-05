@@ -17,7 +17,7 @@ function PropertyList({ properties, onEdit, onDelete, onSelect }) {
           >
             <h3>{property.name}</h3>
             <p><strong>Address:</strong> {property.address}</p>
-            <p><strong>Rent:</strong> {property.rent}</p>
+            <p><strong>Price:</strong> {property.rent}</p>
 
             {/* Only show edit/delete buttons when user is logged in (admin) */}
             {onEdit && onDelete && (

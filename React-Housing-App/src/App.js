@@ -60,9 +60,11 @@ function App() {
       ? property.gender?.toLowerCase() === filters.gender.toLowerCase()
       : true;
 
-    const maxPrice = parseInt(filters.maxPrice);
-    const propertyPrice = parseInt(property.rent?.replace(/\D/g, '')) || 0;
-    const priceMatch = filters.maxPrice ? propertyPrice <= maxPrice : true;
+      const cleanPrice = property.rent?.match(/\d+/g)?.join('') || '0';
+      const propertyPrice = parseInt(cleanPrice, 10);
+      const maxPrice = parseInt(filters.maxPrice, 10);
+      const priceMatch = filters.maxPrice ? propertyPrice <= maxPrice : true;
+      
 
     const minRating = parseFloat(filters.minRating);
     const ratingMatch = filters.minRating
