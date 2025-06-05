@@ -153,7 +153,20 @@ function App() {
         </div>
       </header>
 
-      {isFormVisible ? (
+      {isLoggedIn && (
+        <div style={{
+          backgroundColor: '#f0f0f0',
+          color: '#333',
+          padding: '10px',
+          textAlign: 'center',
+          borderBottom: '1px solid #ccc'
+        }}>
+          You’re logged in as an <strong>admin</strong>. You can add, edit, and delete properties.
+        </div>
+      )}
+
+
+      {isFormVisible && isLoggedIn ? (
         <PropertyForm
           property={currentProperty}
           onSubmit={handleFormSubmit}
@@ -162,8 +175,8 @@ function App() {
       ) : (
         <PropertyList
           properties={properties}
-          onEdit={handleEditProperty}
-          onDelete={handleDeleteProperty}
+          onEdit={isLoggedIn ? handleEditProperty : null}
+          onDelete={isLoggedIn ? handleDeleteProperty : null}
         />
       )}
     </div>
