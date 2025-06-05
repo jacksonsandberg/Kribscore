@@ -1,24 +1,24 @@
 // src/components/PropertyForm.js
 import React, { useState, useEffect } from 'react';
-import './PropertyForm.css'; // We'll create this next
+import './PropertyForm.css';
 
 function PropertyForm({ property, onSubmit, onCancel }) {
-  // Default empty form or use existing property if editing
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    rent: '',
-    // Add any additional fields you want to include
+    price: '',
+    gender: '',
+    rating: ''
   });
 
-  // If property is provided, we're editing an existing property
   useEffect(() => {
     if (property) {
       setFormData({
         name: property.name || '',
         address: property.address || '',
-        rent: property.rent || '',
-        // Set other fields as needed
+        price: property.price || '',
+        gender: property.gender || '',
+        rating: property.rating || ''
       });
     }
   }, [property]);
@@ -33,7 +33,12 @@ function PropertyForm({ property, onSubmit, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    const parsedData = {
+      ...formData,
+      price: Number(formData.price),
+      rating: Number(formData.rating)
+    };
+    onSubmit(parsedData);
   };
 
   return (
@@ -51,7 +56,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="address">Address</label>
           <input
@@ -63,21 +68,49 @@ function PropertyForm({ property, onSubmit, onCancel }) {
             required
           />
         </div>
-        
+
         <div className="form-group">
-          <label htmlFor="rent">Rent</label>
+          <label htmlFor="price">Rent (Monthly)</label>
           <input
-            type="text"
-            id="rent"
-            name="rent"
-            value={formData.rent}
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
             onChange={handleChange}
             required
           />
         </div>
-        
-        {/* Add any additional form fields here */}
-        
+
+        <div className="form-group">
+          <label htmlFor="gender">Gender</label>
+          <select
+            id="gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select</option>
+            <option value="boy">Boy</option>
+            <option value="girl">Girl</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="rating">Rating (1–5)</label>
+          <input
+            type="number"
+            id="rating"
+            name="rating"
+            min="1"
+            max="5"
+            step="0.1"
+            value={formData.rating}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div className="form-buttons">
           <button type="submit" className="btn-submit">
             {property ? 'Update Property' : 'Add Property'}

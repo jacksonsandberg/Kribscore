@@ -4,6 +4,7 @@ import './App.css';
 import PropertyList from './components/PropertyList';
 import PropertyForm from './components/PropertyForm';
 import Login from './components/login';
+import Filters from './components/Filters';
 
 function App() {
   const [properties, setProperties] = useState([]);
@@ -14,6 +15,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem('token')
   );
+
+  const [filters, setFilters] = useState({
+    gender: '',
+    maxPrice: '',
+    minRating: '',
+  });
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -47,6 +54,19 @@ function App() {
   useEffect(() => {
     fetchProperties();
   }, []);
+
+  const filteredProperties = properties.filter((property) => {
+    const genderMatch =
+      !filters.gender || property.gender?.toLowerCase() === filters.gender;
+
+    const priceMatch =
+      !filters.maxPrice || property.price <= parseFloat(filters.maxPrice);
+
+    const ratingMatch =
+      !filters.minRating || property.rating >= parseFloat(filters.minRating);
+
+    return genderMatch && priceMatch && ratingMatch;
+  });
 
   const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
@@ -153,18 +173,21 @@ function App() {
         </div>
       </header>
 
+      <Filters filters={filters} onChange={setFilters} />
+
       {isLoggedIn && (
-        <div style={{
-          backgroundColor: '#f0f0f0',
-          color: '#333',
-          padding: '10px',
-          textAlign: 'center',
-          borderBottom: '1px solid #ccc'
-        }}>
+        <div
+          style={{
+            backgroundColor: '#f0f0f0',
+            color: '#333',
+            padding: '10px',
+            textAlign: 'center',
+            borderBottom: '1px solid #ccc',
+          }}
+        >
           You’re logged in as an <strong>admin</strong>. You can add, edit, and delete properties.
         </div>
       )}
-
 
       {isFormVisible && isLoggedIn ? (
         <PropertyForm
@@ -174,7 +197,7 @@ function App() {
         />
       ) : (
         <PropertyList
-          properties={properties}
+          properties={filteredProperties}
           onEdit={isLoggedIn ? handleEditProperty : null}
           onDelete={isLoggedIn ? handleDeleteProperty : null}
         />

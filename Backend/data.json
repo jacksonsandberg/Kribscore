@@ -3,24 +3,32 @@
     "id": 1,
     "name": "Nice House",
     "address": "55-149 Kulanui St Laie",
-    "rent": "$650/Month"
+    "gender": "girl",
+    "price": 650,
+    "rating": 4.5
   },
   {
     "id": 4,
     "name": "Goat House",
     "address": "Laie Hawaii",
-    "rent": "$800/Month"
+    "gender": "boy",
+    "price": 800,
+    "rating": 4.0
   },
   {
     "id": 5,
     "name": "Mango House",
     "address": "Moana Street",
-    "rent": "$500/month"
+    "gender": "girl",
+    "price": 500,
+    "rating": 3.8
   },
   {
     "id": 6,
     "name": "Tramp House",
     "address": "Laie Hawaii",
-    "rent": "$500/month"
+    "gender": "boy",
+    "price": 500,
+    "rating": 3.2
   }
 ]
