@@ -5,6 +5,7 @@ import PropertyList from './components/PropertyList';
 import PropertyForm from './components/PropertyForm';
 import Login from './components/login';
 import Filters from './components/Filters';
+import PropertyDetail from './components/PropertyDetail';
 
 function App() {
   const [properties, setProperties] = useState([]);
@@ -12,15 +13,16 @@ function App() {
   const [error, setError] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [currentProperty, setCurrentProperty] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem('token')
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [selectedProperty, setSelectedProperty] = useState(null);
 
   const [filters, setFilters] = useState({
     gender: '',
     maxPrice: '',
     minRating: '',
   });
+
+  const API_URL = 'https://kribscore.onrender.com/api/properties';
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -33,8 +35,6 @@ function App() {
     setIsFormVisible(false);
     setCurrentProperty(null);
   };
-
-  const API_URL = 'https://kribscore.onrender.com/api/properties';
 
   const fetchProperties = async () => {
     try {
@@ -59,19 +59,18 @@ function App() {
     const genderMatch = filters.gender
       ? property.gender?.toLowerCase() === filters.gender.toLowerCase()
       : true;
-  
+
     const maxPrice = parseInt(filters.maxPrice);
     const propertyPrice = parseInt(property.rent?.replace(/\D/g, '')) || 0;
     const priceMatch = filters.maxPrice ? propertyPrice <= maxPrice : true;
-  
+
     const minRating = parseFloat(filters.minRating);
     const ratingMatch = filters.minRating
       ? parseFloat(property.rating || 0) >= minRating
       : true;
-  
+
     return genderMatch && priceMatch && ratingMatch;
   });
-  
 
   const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
@@ -87,7 +86,6 @@ function App() {
       });
 
       if (!response.ok) throw new Error('Failed to add property');
-
       fetchProperties();
       setIsFormVisible(false);
     } catch (error) {
@@ -105,7 +103,6 @@ function App() {
       });
 
       if (!response.ok) throw new Error('Failed to update property');
-
       fetchProperties();
       setIsFormVisible(false);
       setCurrentProperty(null);
@@ -123,7 +120,6 @@ function App() {
       });
 
       if (!response.ok) throw new Error('Failed to delete property');
-
       fetchProperties();
     } catch (error) {
       console.error('Error deleting property:', error);
@@ -201,11 +197,21 @@ function App() {
           onCancel={handleCancelForm}
         />
       ) : (
-        <PropertyList
-          properties={filteredProperties}
-          onEdit={isLoggedIn ? handleEditProperty : null}
-          onDelete={isLoggedIn ? handleDeleteProperty : null}
-        />
+        <>
+          <PropertyList
+            properties={filteredProperties}
+            onEdit={isLoggedIn ? handleEditProperty : null}
+            onDelete={isLoggedIn ? handleDeleteProperty : null}
+            onSelect={setSelectedProperty}
+          />
+
+          {selectedProperty && (
+            <PropertyDetail
+              property={selectedProperty}
+              onClose={() => setSelectedProperty(null)}
+            />
+          )}
+        </>
       )}
     </div>
   );
