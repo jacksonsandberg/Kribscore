@@ -1,6 +1,6 @@
 const ADMIN_USER = {
-  username: 'admin',
-  password: 'password123',
+  username: 'Admin',
+  password: 'Byu-Hawaii25',
 };
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'mysecretkey'; // Change this to something more secure in production
