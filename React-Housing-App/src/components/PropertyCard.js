@@ -1,7 +1,7 @@
 import React from 'react';
 
 function PropertyCard(props) {
-  const { title, address, price } = props;
+  const { title, address, rent } = props;
 
   return (
     <div style={{
@@ -14,7 +14,7 @@ function PropertyCard(props) {
     }}>
       <h2>{title}</h2>
       <p><strong>Address:</strong> {address}</p>
-      <p><strong>Price:</strong> {price}</p>
+      <p><strong>Rent:</strong> {rent}</p>
     </div>
   );
 }
