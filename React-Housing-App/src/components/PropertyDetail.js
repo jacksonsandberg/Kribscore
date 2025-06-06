@@ -16,7 +16,7 @@ function PropertyDetail({ property, onClose }) {
         </button>
         <h2>{property.name}</h2>
         <p><strong>Address:</strong> {property.address}</p>
-        <p><strong>Price:</strong> {property.rent}</p>
+        <p><strong>Rent:</strong> ${property.rent}</p>
         {property.gender && <p><strong>Gender Housing:</strong> {property.gender}</p>}
         {property.rating && <p><strong>Rating:</strong> {property.rating} / 5</p>}
         {property.description && <p><strong>Description:</strong> {property.description}</p>}
