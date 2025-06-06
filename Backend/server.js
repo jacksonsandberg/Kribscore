@@ -86,12 +86,12 @@ app.post('/api/properties', authenticateToken, async (req, res) => {
       ? Math.max(...properties.map(p => p.id)) + 1 
       : 1;
 
-      const { name, address, price, gender, rating } = req.body;
+      const { name, address, rent, gender, rating } = req.body;
       const newProperty = {
         id: newId,
         name,
         address,
-        price,
+        rent,
         gender,
         rating,
       };
@@ -115,12 +115,12 @@ app.put('/api/properties/:id', authenticateToken, async (req, res) => {
 
     if (index === -1) return res.status(404).json({ message: 'Property not found' });
 
-    const { name, address, price, gender, rating } = req.body;
+    const { name, address, rent, gender, rating } = req.body;
 const updatedProperty = {
   id,
   name,
   address,
-  price,
+  rent,
   gender,
   rating,
 };
