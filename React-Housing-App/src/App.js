@@ -59,20 +59,18 @@ function App() {
     const genderMatch = filters.gender
       ? property.gender?.toLowerCase() === filters.gender.toLowerCase()
       : true;
-
-      const cleanPrice = property.rent?.match(/\d+/g)?.join('') || '0';
-      const propertyPrice = parseInt(cleanPrice, 10);
-      const maxPrice = parseInt(filters.maxPrice, 10);
-      const priceMatch = filters.maxPrice ? propertyPrice <= maxPrice : true;
-      
-
-    const minRating = parseFloat(filters.minRating);
-    const ratingMatch = filters.minRating
-      ? parseFloat(property.rating || 0) >= minRating
+  
+    const priceMatch = filters.maxPrice
+      ? Number(property.rent) <= Number(filters.maxPrice)
       : true;
-
+  
+    const ratingMatch = filters.minRating
+      ? Number(property.rating) >= Number(filters.minRating)
+      : true;
+  
     return genderMatch && priceMatch && ratingMatch;
   });
+  
 
   const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
