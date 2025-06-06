@@ -57,7 +57,7 @@ function App() {
 
   const filteredProperties = properties.filter((property) => {
     const genderMatch = filters.gender
-      ? property.gender?.toLowerCase() === filters.gender.toLowerCase()
+      ? property.gender?.trim().toLowerCase() === filters.gender.trim().toLowerCase()
       : true;
   
     const priceMatch = filters.maxPrice

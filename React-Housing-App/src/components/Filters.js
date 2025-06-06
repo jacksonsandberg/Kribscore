@@ -11,8 +11,8 @@ function Filters({ filters, onChange }) {
           onChange={(e) => onChange({ ...filters, gender: e.target.value })}
         >
           <option value="">All</option>
-          <option value="boys">Boys Housing</option>
-          <option value="girls">Girls Housing</option>
+          <option value="boy">Boys Housing</option>
+          <option value="girl">Girls Housing</option>
         </select>
       </label>
 
