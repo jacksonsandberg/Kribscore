@@ -30,5 +30,13 @@
     "gender": "boy",
     "rent": 500,
     "rating": 3.2
+  },
+  {
+    "id": 7,
+    "name": "Yacht House",
+    "address": "55-072 Naupaka Street",
+    "gender": "girl",
+    "rent": 725,
+    "rating": 5
   }
 ]
