@@ -16,7 +16,7 @@ function PropertyCard(props) {
   return (
     <div className="property-card">
       <img
-        src={imageUrl || '/placeholder.jpg'}
+        src={imageUrl || '/images/Hawaiicoolhouse.jpg'}
         alt={title}
         className="property-image"
       />
