@@ -16,10 +16,10 @@ function PropertyCard(props) {
   return (
     <div className="property-card">
       <img
-        src={imageUrl || '../images/Hawaiicoolhouse.jpg'}
-        alt={title}
-        className="property-image"
-      />
+  src={imageUrl || `${process.env.PUBLIC_URL}/images/Hawaiicoolhouse.jpg`}
+  alt={title}
+  className="property-image"
+/>
 
       <div className="property-content">
         <h3>{title}</h3>
