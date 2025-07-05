@@ -31,7 +31,8 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease;
-}
+  padding: 12px;
+  }
 
 .property-card:hover {
   transform: translateY(-4px);
@@ -47,7 +48,7 @@
 
 /* Card Body */
 .property-content {
-  padding: 24px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
