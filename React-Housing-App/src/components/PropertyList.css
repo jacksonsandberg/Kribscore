@@ -1,10 +1,25 @@
 /* PropertyList.css */
 
+/* Base layout: mobile-first, single column */
 .property-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: 20px;
-  padding: 0 20px;
+  padding: 0 16px;
+}
+
+/* At medium screen sizes and up, show multiple columns */
+@media (min-width: 600px) {
+  .property-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .property-list {
+    padding: 0 40px;
+    gap: 24px;
+  }
 }
 
 /* Card Container */
@@ -42,11 +57,13 @@
   margin: 0;
   font-size: 1.2rem;
   color: #114b5f;
+  word-wrap: break-word;
 }
 
 .property-info {
   font-size: 0.9rem;
   color: #555;
+  word-wrap: break-word;
 }
 
 /* Tags / Badges */
@@ -68,6 +85,8 @@
 /* Action Buttons */
 .property-actions {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: flex-end;
   margin-top: 10px;
   gap: 10px;
@@ -75,7 +94,7 @@
 
 .edit-btn,
 .delete-btn {
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -106,4 +125,5 @@
   text-align: center;
   font-size: 18px;
   color: #666;
+  padding: 1rem;
 }
