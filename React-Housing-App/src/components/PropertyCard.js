@@ -16,7 +16,8 @@ function PropertyCard(props) {
   return (
     <div className="property-card">
       <img
-  src={imageUrl || `${process.env.PUBLIC_URL}/images/Hawaiicoolhouse.jpg`}
+  src={imageUrl || `React-Housing-App/public/images/Hawaiicoolhouse.jpg
+`}
   alt={title}
   className="property-image"
 />
